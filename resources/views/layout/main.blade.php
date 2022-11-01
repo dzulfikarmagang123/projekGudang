@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		<link rel="shortcut icon" href="/file/logo" />
 		
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -13,7 +14,7 @@
 		<link href="/assets/plugins/custom/jstree/jstree.bundle.css" rel="stylesheet" type="text/css" />
 		<link href="/assets/css/jquery-confirm.css" rel="stylesheet" type="text/css"/>`
 		<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<style type="text/css">
 			.cp{
 				cursor: pointer;
@@ -178,7 +179,7 @@
 				</svg>
 			</span>
 		</div>
-
+		@include('layout.javascript')
 
 		<script src="/assets/plugins/global/plugins.bundle.js"></script>
 		<script src="/assets/js/scripts.bundle.js"></script>
