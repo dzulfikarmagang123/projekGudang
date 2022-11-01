@@ -20,7 +20,8 @@ use App\Http\Controllers\MainController;
 //     return view('layout.main');
 // });
 
-Route::get('/', [MainController::class, 'index'])->middleware('auth');
+Route::get('/', [MainController::class, 'index']);
+Route::post('/getPage', [MainController::class, 'getPage'])->name('getPage');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authentication']);

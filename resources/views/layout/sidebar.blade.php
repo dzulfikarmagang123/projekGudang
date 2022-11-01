@@ -1,14 +1,14 @@
 <div class="aside-menu flex-column-fluid">
 	<div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
-		<div class="menu menu-column menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 pb-10" id="#kt_aside_menu" data-kt-menu="true">
-			{!sidebar!}
-            <div class="menu-item">
+		<div class="sidebar-menu menu menu-column menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 pb-10" id="#kt_aside_menu" data-kt-menu="true">
+			{{-- {!sidebar!} --}}
+            {{-- <div class="menu-item">
                 <a class="menu-link" href="javascript:;" >
                     <!-- {$menuIcon} -->
                     <i class="fa fa-user"></i>
                     <span class="menu-title text-white">User</span>
                 </a>
-            </div>
+            </div> --}}
 			<!-- <div class="menu-item">
 				<div class="menu-content">
 					<div class="separator mx-1 my-4 text-white"></div>
