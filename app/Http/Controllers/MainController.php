@@ -11,7 +11,9 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('layout.main');
+        return view('layout.main',[
+			'title' => 'Main'
+		]);
     }
 
     public function getPage()
@@ -37,11 +39,12 @@ class MainController extends Controller
         // ])->orderBy('menu_order','asc')->get()->toArray();
 
         $collect  	= collect($menus); 
+        // print_r($collect->where('menu_navbar',0)->all()); 
+
         $dataMenu = [
             'navbar' => $this->getNavbar($collect->where('menu_navbar',1)->all()),
 			'sidebar' => $this->getSidebar($collect->where('menu_navbar',0)->all())
         ];
-        // print_r($dataMenu); exit;
         return $dataMenu;
 	}
 
@@ -84,9 +87,17 @@ class MainController extends Controller
 											foreach ($collect->where('menu_level',3)->where('menu_parent',$valueSub1['menu_id'])->all() as $keySub3 => $valueSub3) {
                                                 $valueSub11 = json_decode(json_encode($valueSub3), true);
 
+												// <div class=\"menu-item\">
+												// 	<a class=\"menu-link py-3\" href=\"javascript:;\" data-con=\"{$valueSub11['menu_id']}\" onclick=\"HELPER.loadPage(this)\">
+												// 		<span class=\"menu-bullet\">
+												// 			<span class=\"bullet bullet-dot\"></span>
+												// 		</span>
+												// 		<span class=\"menu-title\">{$valueSub11['menu_title']}</span>
+												// 	</a>
+												// </div>
 												$htmlNavbar .= "
 													<div class=\"menu-item\">
-														<a class=\"menu-link py-3\" href=\"javascript:;\" data-con=\"{$valueSub11['menu_id']}\" onclick=\"HELPER.loadPage(this)\">
+														<a class=\"menu-link py-3\" href=\"{$valueSub11['menu_url']}\" data-con=\"{$valueSub11['menu_id']}\">
 															<span class=\"menu-bullet\">
 																<span class=\"bullet bullet-dot\"></span>
 															</span>
@@ -98,9 +109,15 @@ class MainController extends Controller
 										$htmlNavbar .= "</div>
 									</div>";
 								}else{									
+									// <div class=\"menu-item\">
+									// 	<a class=\"menu-link py-3\" href=\"javascript:;\" data-con=\"{$valueSub1['menu_id']}\" onclick=\"HELPER.loadPage(this)\" title=\"{$valueSub1['menu_description']}\" data-bs-toggle=\"tooltip\" data-bs-trigger=\"hover\" data-bs-dismiss=\"click\" data-bs-placement=\"right\">
+									// 		{$iconSub}
+									// 		<span class=\"menu-title\">{$valueSub1['menu_title']}</span>
+									// 	</a>
+									// </div>
 									$htmlNavbar .= "
 										<div class=\"menu-item\">
-											<a class=\"menu-link py-3\" href=\"javascript:;\" data-con=\"{$valueSub1['menu_id']}\" onclick=\"HELPER.loadPage(this)\" title=\"{$valueSub1['menu_description']}\" data-bs-toggle=\"tooltip\" data-bs-trigger=\"hover\" data-bs-dismiss=\"click\" data-bs-placement=\"right\">
+											<a class=\"menu-link py-3\" href=\"{$valueSub1['menu_url']}\" data-con=\"{$valueSub1['menu_id']}\" title=\"{$valueSub1['menu_description']}\" data-bs-toggle=\"tooltip\" data-bs-trigger=\"hover\" data-bs-dismiss=\"click\" data-bs-placement=\"right\">
 												{$iconSub}
 												<span class=\"menu-title\">{$valueSub1['menu_title']}</span>
 											</a>
@@ -130,11 +147,15 @@ class MainController extends Controller
 	{
 		$collect = collect($data);
 		$html = '';
-		foreach ($collect->where('menu_level', 1)->where('menu_navbar', 0)->all() as $key => $value) {
-            $valueCollect = json_decode(json_encode($value), true);
+		$menuNavbar = $collect->where('menu_level', 1)->where('menu_navbar', 0)->all();
+        $valueCollect = json_decode(json_encode($menuNavbar), true);
+
+		foreach ($valueCollect as $key => $value) {
+			$valueCollect = json_decode(json_encode($value), true);
 
 			$menuIcon = ($valueCollect['menu_icon'] !='') ? "<span class=\"menu-icon\"><i class=\"{$valueCollect['menu_icon']}\"></i></span>" : "";
 			if ($valueCollect['menu_hassub'] == 1) {
+
 				$html .= "
 					<div data-kt-menu-trigger=\"click\" class=\"menu-item menu-accordion\">
 						<span class=\"menu-link\">
@@ -143,6 +164,7 @@ class MainController extends Controller
 							<span class=\"menu-arrow\"></span>
 						</span>
 						<div class=\"menu-sub menu-sub-accordion menu-active-bg\">";
+						// print_r($collect->where('menu_level',2)->where('menu_parent',$valueCollect['menu_id'])->all());
 							foreach ($collect->where('menu_level',2)->where('menu_parent',$valueCollect['menu_id'])->all() as $keySub => $valueSub) {
                             $valueCollect1 = json_decode(json_encode($valueSub), true);
 

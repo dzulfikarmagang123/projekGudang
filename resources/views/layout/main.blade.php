@@ -158,7 +158,9 @@
 						<div class="toolbar" id="kt_toolbar">
 							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-									<div id="titleContent"></div>
+									<div class=" fw-bold fs-4 fs-md-2" id="titleContent">
+										{{$title}}
+									</div>
 								</div>
 							</div>
 						</div>

@@ -16,12 +16,7 @@ class LoginController extends Controller
             'title' => 'Login'
         ]);
     }
-
-    public function getAuthPassword()
-    {
-        return $this->user_password;
-    }
-
+   
     public function authentication(Request $request)
     {
         $credentials = $request->validate([
@@ -29,8 +24,14 @@ class LoginController extends Controller
             'user_email' => ['required','email:dns'],
             'user_password' => 'required'
         ]);
+        $data = [
+            'user_email' => $request->input('user_email'),
+            'password' => $request->input('user_password'),
+        ];
 
-        if(Auth::attempt(['user_email' => $request->user_email, 'password' => $request->user_password], false)){
+        // if(Auth::attempt(['user_email' => $request->user_email, 'password' => $request->user_password], false)){
+        if(Auth::attempt($data)){
+            $user = Auth::user();
             $users = User::select()->where('user_email', $request->user_email)->first();
             // Session::put('userdata', $users);
             session(['userdata' => $users]);

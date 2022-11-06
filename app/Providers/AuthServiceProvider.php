@@ -27,4 +27,14 @@ class AuthServiceProvider extends ServiceProvider
 
         //
     }
+    
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+
+   
+    
+
 }
